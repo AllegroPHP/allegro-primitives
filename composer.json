@@ -1,5 +1,5 @@
 {
-    "name": "allegro-php/allegro-primitives",
+    "name": "allegro-php/primitives",
     "description": "PHP bindings to the allegro primitives.",
     "keywords": [
         "ui",
