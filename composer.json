@@ -1,0 +1,30 @@
+{
+    "name": "allegro-php/allegro-primitives",
+    "description": "PHP bindings to the allegro primitives.",
+    "keywords": [
+        "ui",
+        "php",
+        "ffi",
+        "allegro",
+        "3D",
+        "2D",
+        "graphic"
+    ],
+    "authors": [
+        {
+            "name": "Dmitrii Polishchuk",
+            "email": "polishuk1003@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-ffi": "*",
+        "serafim/ffi-loader": "^1.0",
+        "allegro-php/allegro": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "AllegroPHP\\Primitives\\": "src"
+        }
+    }
+}
