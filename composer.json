@@ -22,7 +22,7 @@
         "php": ">=8.0",
         "ext-ffi": "*",
         "serafim/ffi-loader": "^1.0",
-        "allegro-php/allegro": "*"
+        "allegro-php/allegro": "dev-main"
     },
     "autoload": {
         "psr-4": {
