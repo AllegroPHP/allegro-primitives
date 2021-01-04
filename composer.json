@@ -11,7 +11,6 @@
         "2D",
         "graphic"
     ],
-    "version": "0.0.1",
     "authors": [
         {
             "name": "Dmitrii Polishchuk",
@@ -22,7 +21,7 @@
         "php": ">=8.0",
         "ext-ffi": "*",
         "serafim/ffi-loader": "^1.0",
-        "allegro-php/allegro": "dev-main"
+        "allegro-php/allegro": "^0.1"
     },
     "autoload": {
         "psr-4": {

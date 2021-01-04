@@ -10,11 +10,7 @@ class Library extends BaseLibrary
 {
     private const LIBRARY_LINUX = 'liballegro_primitives.so';
 
-    private const VERSION = <<<'C'
-uint32_t al_get_allegro_primitives_version(void);
-C;
-
-    private ?string $version = null;
+    private ?string $version = '0.1.0';
 
     public function getName(): string
     {
@@ -23,10 +19,6 @@ C;
 
     public function getVersion(string $library): string
     {
-        if ($this->version === null) {
-            $c = \FFI::cdef(self::VERSION, $library);
-            $this->version = $c->al_get_allegro_primitives_version();
-        }
         return $this->version;
     }
 

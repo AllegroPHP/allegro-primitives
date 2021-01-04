@@ -1,15 +1,5 @@
-## php-allegro-primitives
+<?php
 
-PHP bindings to the [allegro 5](https://liballeg.org/) C library.
-
-**Requirements**
-* PHP >= 8.0
-* PHP FFI extension available
-* allegro 5
-
-**Example:**
-
-```php
 require __DIR__ . '/vendor/autoload.php';
 
 use AllegroPHP\Allegro\Allegro;
@@ -55,4 +45,3 @@ while ($running){
 }
 
 $allegro->al_destroy_display($display);
-```
