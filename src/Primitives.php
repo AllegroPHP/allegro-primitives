@@ -4,64 +4,58 @@ declare(strict_types=1);
 
 namespace AllegroPHP\Primitives;
 
-use Serafim\FFILoader\LibraryInformation;
-use Serafim\FFILoader\LibraryInterface;
-use Serafim\FFILoader\Loader;
+use FFI\Contracts\Preprocessor\PreprocessorInterface;
+use FFI\Location\Locator;
+use FFI\Preprocessor\Preprocessor;
+use FFI\Proxy\Proxy;
+use Psr\SimpleCache\CacheInterface;
 
-class Primitives
+class Primitives extends Proxy
 {
-    public function __construct()
+    private readonly string $library;
+
+    public function __construct(
+        ?string               $library = null,
+        CacheInterface        $cache = null,
+        PreprocessorInterface $pre = new Preprocessor(),
+    )
     {
-        $this->loader = $this->loader();
-
-        $this->info = $this->loadLibrary(new Library());
-
-        self::setInstance($this);
+        $this->library = $this->detectLibraryPathname($library);
+        $header = $this->getHeader($pre, $cache);
+        parent::__construct(\FFI::cdef((string)$header, $this->library));
     }
 
-    /**
-     * @return Loader
-     */
-    private function loader(): Loader
+    private function getHeader(PreprocessorInterface $pre, ?CacheInterface $cache): string|\Stringable
     {
-        $loader = new Loader();
+//        if ($cache !== null) {
+//        }
 
-        $pre = $loader->preprocessor();
-        $pre->keepComments = false;
-        $pre->minify = false;
-        $pre->tolerant = false;
-
-        return $loader;
+        return new Header($pre);
     }
 
-    /**
-     * @var self|null
-     */
-    private static ?self $instance = null;
-
-    /**
-     * @return static
-     */
-    public static function getInstance(): self
+    private function detectLibraryPathname(?string $library): string
     {
-        return self::$instance ??= new static();
-    }
+        if ($library !== null) {
+            return \realpath($library) ?: Locator::resolve($library) ?? $library;
+        }
 
-    /**
-     * @param Primitives|null $instance
-     */
-    public static function setInstance(?self $instance): void
-    {
-        self::$instance = $instance;
-    }
-
-    /**
-     * @param LibraryInterface $library
-     *
-     * @return LibraryInformation
-     */
-    public function loadLibrary(LibraryInterface $library): LibraryInformation
-    {
-        return $this->loader->load($library);
+        return match (\PHP_OS_FAMILY) {
+            'Windows' => Locator::resolve('liballegro_primitives.dll')
+                ?? throw new \RuntimeException(<<<'error'
+                    Could not load [liballegro_primitives.dll].
+                    error
+                ),
+            'BSD',
+            'Linux' => Locator::resolve('liballegro_primitives.so')
+                ?? throw new \RuntimeException(<<<'error'
+                    Could not load [liballegro_primitives.so].
+                    error
+                ),
+            'Darwin' => Locator::resolve('liballegro_primitives.dylib')
+                ?? throw new \RuntimeException(<<<'error'
+                    Could not load [liballegro_primitives.dylib].
+                    error
+                ),
+        };
     }
 }

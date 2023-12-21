@@ -3,21 +3,23 @@
 PHP bindings to the [allegro 5](https://liballeg.org/) C library.
 
 **Requirements**
-* PHP >= 8.0
+* PHP >= 8.1
 * PHP FFI extension available
 * allegro 5
 
 **Example:**
 
 ```php
+<?php
+
 require __DIR__ . '/vendor/autoload.php';
 
 use AllegroPHP\Allegro\Allegro;
 use AllegroPHP\Primitives\Primitives;
 use AllegroPHP\Allegro\Event\Type;
 
-$allegro = Allegro::getInstance()->info->ffi;
-$primitives = Primitives::getInstance()->info->ffi;
+$allegro = new Allegro();
+$primitives = new Primitives();
 
 $init = $allegro->al_install_system($allegro->al_get_allegro_version(), function (){});
 

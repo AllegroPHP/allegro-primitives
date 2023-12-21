@@ -18,10 +18,14 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "ext-ffi": "*",
-        "serafim/ffi-loader": "^1.0",
-        "allegro-php/allegro": "^0.1"
+        "ffi/proxy": "^1.0",
+        "ffi/location": "^1.0",
+        "ffi-headers/contracts": "^1.0",
+        "ffi/preprocessor": "^0.2.2",
+        "psr/simple-cache": "^3.0",
+        "allegro-php/allegro": "^0.2"
     },
     "autoload": {
         "psr-4": {

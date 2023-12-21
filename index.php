@@ -6,8 +6,8 @@ use AllegroPHP\Allegro\Allegro;
 use AllegroPHP\Primitives\Primitives;
 use AllegroPHP\Allegro\Event\Type;
 
-$allegro = Allegro::getInstance()->info->ffi;
-$primitives = Primitives::getInstance()->info->ffi;
+$allegro = new Allegro();
+$primitives = new Primitives();
 
 $init = $allegro->al_install_system($allegro->al_get_allegro_version(), function (){});
 
